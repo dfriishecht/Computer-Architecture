@@ -120,3 +120,5 @@ module cycle_color #(
                 next_red = 1'b1;
         endcase
     end
+
+endmodule
