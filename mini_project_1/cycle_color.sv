@@ -9,7 +9,7 @@ Requirements:
 
 module cycle_color #(
 
-    parameter COLOR_INTERVAL = 2000000, //~0.167 seconds with 12MHz clock
+    parameter COLOR_INTERVAL = 2000000 //~0.167 seconds with 12MHz clock
 )(
     input logic clk,
     output logic red,
@@ -31,10 +31,10 @@ module cycle_color #(
     logic [2:0] next_state;
 
     // Declare next output variables to determine color blend.
-    logic next_red, next_green, next_blue
+    logic next_red, next_green, next_blue;
 
     // Declare counter variables for state switching
-    logic [$clog2(COLOR_INTERVAL)] count = 0;
+    logic [$clog2(COLOR_INTERVAL) - 1:0] count = 0;
     
 
     // State-Register (Sequential)
@@ -47,47 +47,49 @@ module cycle_color #(
         case (current_state)
             RED:
                 if (count == COLOR_INTERVAL - 1) begin
-                    count <= 0;
                     next_state = YELLOW;
                 end
                 else
                     next_state = RED;
             YELLOW:
                 if (count == COLOR_INTERVAL - 1) begin
-                    count <= 0;
                     next_state = GREEN;
                 end
                 else
                     next_state = YELLOW;
             GREEN:
                 if (count == COLOR_INTERVAL - 1) begin
-                    count <= 0;
                     next_state = CYAN;
                 end
                 else
                     next_state = GREEN;
             CYAN:
                 if (count == COLOR_INTERVAL - 1) begin
-                    count <= 0;
                     next_state = BLUE;
                 end
                 else
                     next_state = CYAN;
             BLUE:
                 if (count == COLOR_INTERVAL - 1) begin
-                    count <= 0;
                     next_state = MAGENTA;
                 end
                 else
                     next_state = BLUE;
             MAGENTA:
                 if (count == COLOR_INTERVAL - 1) begin
-                    count <= 0;
                     next_state = RED;
                 end
                 else
                     next_state = MAGENTA;
         endcase
+    end
+
+    // Counting-Register (Sequential)
+    always_ff @(posedge clk) begin
+        if (count == COLOR_INTERVAL - 1)
+            count <= 0;
+        else
+            count <= count + 1;
     end
 
     // Output-Register (Sequential)
@@ -105,19 +107,22 @@ module cycle_color #(
         case (current_state)
             RED:
                 next_red = 1'b1;
-            YELLOW:
+            YELLOW: begin
                 next_red = 1'b1;
                 next_green = 1'b1;
+            end
             GREEN:
                 next_green = 1'b1;
-            CYAN:
+            CYAN: begin
                 next_green = 1'b1;
                 next_blue = 1'b1;
+            end
             BLUE:
                 next_blue = 1'b1;
-            MAGENTA:
+            MAGENTA: begin
                 next_blue = 1'b1;
                 next_red = 1'b1;
+            end
         endcase
     end
 
