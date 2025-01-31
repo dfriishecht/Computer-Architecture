@@ -89,3 +89,34 @@ module cycle_color #(
                     next_state = MAGENTA;
         endcase
     end
+
+    // Output-Register (Sequential)
+    always_ff @(posedge clk) begin
+        red <= next_red;
+        green <= next_green;
+        blue <= next_blue;
+    end
+
+    // Output-Logic (Combinational)
+    always_comb begin
+        next_red = 1'b0;
+        next_green = 1'b0;
+        next_blue = 1'b0;
+        case (current_state)
+            RED:
+                next_red = 1'b1;
+            YELLOW:
+                next_red = 1'b1;
+                next_green = 1'b1;
+            GREEN:
+                next_green = 1'b1;
+            CYAN:
+                next_green = 1'b1;
+                next_blue = 1'b1;
+            BLUE:
+                next_blue = 1'b1;
+            MAGENTA:
+                next_blue = 1'b1;
+                next_red = 1'b1;
+        endcase
+    end
