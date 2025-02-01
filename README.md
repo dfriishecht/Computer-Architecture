@@ -44,10 +44,11 @@ Internal Functionality -
 make
 make prog
 ```
-3. If you wish to remove the built files afterwards, run (if you are not on Windows, you'll have to uncomment the correct removal command in the Makefile):
+3. If you wish to remove the built files afterwards, run:
 ```bash
 make clean
 ```
+ (if you are not on Windows, you'll have to uncomment the correct removal command in the Makefile)
 
 
 
