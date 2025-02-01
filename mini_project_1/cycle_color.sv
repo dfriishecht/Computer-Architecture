@@ -4,7 +4,7 @@
 Requirements:
 
 - drive RGB LED to cycle through RED, YELLOW, GREEN, CYAN, BLUE, and MAGENTA once per second
-    - Given a clock speed of 12MHz, this equates to 2Mhz per color
+    - Given a clock speed of 12MHz, this equates to 2 million clock cycles per color
 */
 
 module cycle_color #(
@@ -33,8 +33,8 @@ module cycle_color #(
 
     // Declare next output variables to determine color blend.
     logic next_red, next_green, next_blue;
-
-    // Declare counter variables for state switching
+ 
+    // Declare counter variable for state switching
     logic [($clog2(COLOR_INTERVAL))-1:0] count = 0;
     
     // State Transition (Sequential)
