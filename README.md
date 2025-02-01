@@ -6,6 +6,8 @@ Mini Project 1 features a digital circuit used to drive the iceBlinkPico board t
 
 This is implemented with a finite-state machine, where each color configuration is a state. A clock cycle counter is used to determine when to switch states.
 
+[LINK TO DEMO VIDEO](https://drive.google.com/file/d/1cO7hveJvfoo27snOOJCG3cbyO854D4y7/view?usp=sharing)
+
 ## State Machine Design
 
 | State   | Red | Green | Blue |
