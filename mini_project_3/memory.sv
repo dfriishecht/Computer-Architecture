@@ -8,6 +8,8 @@ module memory #(
 
     // Declare memory array for storing 128 10-bit samples of a sine function
     logic [9:0] sample_memory [0:127];
+    
+    // Initialize quadrant to 0 to ensure we always have a valid state
     logic [1:0] quadrant = 0; // Variable to control sine wave quadrant
 
     initial if (INIT_FILE) begin // Start to read the memory file

@@ -2,7 +2,7 @@ filename = sine
 pcf_file = ../common/iceBlinkPico.pcf
 
 build:
-	yosys -p "synth_ice40 -top sine -json $(filename).json" $(filename).sv
+	yosys -p "synth_ice40 -top $(filename) -json $(filename).json" $(filename).sv
 	nextpnr-ice40 --up5k --package sg48 --json $(filename).json --pcf $(pcf_file) --asc $(filename).asc
 	icepack $(filename).asc $(filename).bin
 
